@@ -108,6 +108,8 @@ public class JsonParser {
             match(JsonToken.Type.SingleQuote);
             string();
             match(JsonToken.Type.SingleQuote);
+        }else if(look.getType()== JsonToken.Type.Number){
+            number();
         }else {
             error();
         }
@@ -125,56 +127,56 @@ public class JsonParser {
         match(JsonToken.Type.Str);
     }
 
-    void jsons() throws ParseException {
-        json();
-        if(look.getType()== JsonToken.Type.Comma){
-            match(JsonToken.Type.Comma);
-            jsons();
-        }
-    }
-
-    void json() throws ParseException {
-        if(look.getType()!=JsonToken.Type.Eof){
-            match(JsonToken.Type.Lbb);
-            stmts();
-            match(JsonToken.Type.Rbb);
-        }
-    }
-    void stmts() throws ParseException {
-
-        if(look.getType()!= JsonToken.Type.Rbb){
-            stmt();
-            if(look.getType()== JsonToken.Type.Comma){
-                match(JsonToken.Type.Comma);
-                stmts();
-            }
-        }else{
-            // e
-        }
-    }
-    void stmt() throws ParseException {
-        string();
-        match(JsonToken.Type.Semi);
-        if(look.getType()==JsonToken.Type.Lbb){
-            json();
-        }else if(look.getType()==JsonToken.Type.Lmb){
-            arr();
-        }else if(look.getType()==JsonToken.Type.Number){
-            match(JsonToken.Type.Number);
-        }else if(look.getType()==JsonToken.Type.Null){
-            match(JsonToken.Type.Null);
-        }else if(look.getType()==JsonToken.Type.DoubleQuote){
-            string();
-        }
-    }
-
-    void strings() throws ParseException {
-        string();
-        if(look.getType()==JsonToken.Type.Comma){
-            match(JsonToken.Type.Comma);
-            strings();
-        }
-    }
+//    void jsons() throws ParseException {
+//        json();
+//        if(look.getType()== JsonToken.Type.Comma){
+//            match(JsonToken.Type.Comma);
+//            jsons();
+//        }
+//    }
+//
+//    void json() throws ParseException {
+//        if(look.getType()!=JsonToken.Type.Eof){
+//            match(JsonToken.Type.Lbb);
+//            stmts();
+//            match(JsonToken.Type.Rbb);
+//        }
+//    }
+//    void stmts() throws ParseException {
+//
+//        if(look.getType()!= JsonToken.Type.Rbb){
+//            stmt();
+//            if(look.getType()== JsonToken.Type.Comma){
+//                match(JsonToken.Type.Comma);
+//                stmts();
+//            }
+//        }else{
+//            // e
+//        }
+//    }
+//    void stmt() throws ParseException {
+//        string();
+//        match(JsonToken.Type.Semi);
+//        if(look.getType()==JsonToken.Type.Lbb){
+//            json();
+//        }else if(look.getType()==JsonToken.Type.Lmb){
+//            arr();
+//        }else if(look.getType()==JsonToken.Type.Number){
+//            match(JsonToken.Type.Number);
+//        }else if(look.getType()==JsonToken.Type.Null){
+//            match(JsonToken.Type.Null);
+//        }else if(look.getType()==JsonToken.Type.DoubleQuote){
+//            string();
+//        }
+//    }
+//
+//    void strings() throws ParseException {
+//        string();
+//        if(look.getType()==JsonToken.Type.Comma){
+//            match(JsonToken.Type.Comma);
+//            strings();
+//        }
+//    }
 //    void string() throws ParseException {
 //        match(JsonToken.Type.DoubleQuote);
 //        if(look.getType()== JsonToken.Type.Str){
@@ -184,28 +186,21 @@ public class JsonParser {
 //
 //    }
 
-    void arr() throws ParseException {
-        match(JsonToken.Type.Lmb);
-        if(look.getType()==JsonToken.Type.Lbb){
-            jsons();
-        }else if(look.getType()==JsonToken.Type.DoubleQuote){
-            strings();
-        }else if(look.getType()==JsonToken.Type.Number) {
-            numbers();
-        }
-        match(JsonToken.Type.Rmb);
-    }
+//    void arr() throws ParseException {
+//        match(JsonToken.Type.Lmb);
+//        if(look.getType()==JsonToken.Type.Lbb){
+//            jsons();
+//        }else if(look.getType()==JsonToken.Type.DoubleQuote){
+//            strings();
+//        }else if(look.getType()==JsonToken.Type.Number) {
+//            numbers();
+//        }
+//        match(JsonToken.Type.Rmb);
+//    }
 
     void number() throws ParseException {
         match(JsonToken.Type.Number);
     }
-    void numbers() throws ParseException {
-        number();
-        if(look.getType()==JsonToken.Type.Comma){
-            match(JsonToken.Type.Comma);
-            numbers();
-        }
 
-    }
 
 }
